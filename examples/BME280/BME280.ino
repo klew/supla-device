@@ -23,6 +23,7 @@
  * Dependency: Install "Adafruit BME280 Library" via Library Manager.
  */
 
+#include <Wire.h>
 #include <SuplaDevice.h>
 #include <supla/sensor/BME280.h>
 
@@ -53,6 +54,8 @@
 
 void setup() {
   Serial.begin(115200);
+  // Initialize I2C bus (required by Adafruit BME280)
+  Wire.begin();
 
   // Replace the following GUID with value that you can retrieve from:
   // https://www.supla.org/arduino/get-guid
