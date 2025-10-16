@@ -27,6 +27,23 @@
 #include <SuplaDevice.h>
 #include <supla/sensor/BME280.h>
 
+// Default I2C pins per platform (can be changed to match your board)
+#if defined(ARDUINO_ARCH_ESP8266)
+#  ifndef I2C_SDA
+#    define I2C_SDA 4   // D2
+#  endif
+#  ifndef I2C_SCL
+#    define I2C_SCL 5   // D1
+#  endif
+#elif defined(ARDUINO_ARCH_ESP32)
+#  ifndef I2C_SDA
+#    define I2C_SDA 21
+#  endif
+#  ifndef I2C_SCL
+#    define I2C_SCL 22
+#  endif
+#endif
+
 // Choose proper network interface for your board:
 #ifdef ARDUINO_ARCH_AVR
   // Arduino Mega with EthernetShield W5100:
@@ -55,7 +72,11 @@
 void setup() {
   Serial.begin(115200);
   // Initialize I2C bus (required by Adafruit BME280)
+#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
+  Wire.begin(I2C_SDA, I2C_SCL);
+#else
   Wire.begin();
+#endif
 
   // Replace the following GUID with value that you can retrieve from:
   // https://www.supla.org/arduino/get-guid
