@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 
 project(supla-device-linux)
 
@@ -40,13 +40,9 @@ FetchContent_Declare(
         GIT_TAG        v1.1.6
 )
 
-FetchContent_GetProperties(mqttc)
-if(NOT mqttc_POPULATED)  # Have we downloaded mqttc yet?
-  set(MQTT_C_OpenSSL_SUPPORT ON CACHE BOOL "Build MQTT-C with OpenSSL support?")
-  set(MQTT_C_EXAMPLES OFF CACHE BOOL "Build MQTT-C examples?")
-  FetchContent_Populate(mqttc)
-  add_subdirectory(${mqttc_SOURCE_DIR} ${mqttc_BINARY_DIR})
-endif()
+set(MQTT_C_OpenSSL_SUPPORT ON CACHE BOOL "Build MQTT-C with OpenSSL support?")
+set(MQTT_C_EXAMPLES OFF CACHE BOOL "Build MQTT-C examples?")
+FetchContent_MakeAvailable(mqttc)
 
 include_directories(
         .
