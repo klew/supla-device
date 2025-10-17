@@ -1,3 +1,18 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(supla-device 
+  VERSION 25.10.02
+  DESCRIPTION "Supla Device Library"
+  LANGUAGES C CXX
+)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Create the library target first
+add_library(supladevice STATIC)
+
 set(SUPLA_DEVICE_SRCS
   src/SuplaDevice.cpp
 
